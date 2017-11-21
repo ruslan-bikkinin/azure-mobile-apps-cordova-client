@@ -53,6 +53,32 @@
     </platform>
 
     <platform name="android">
+        <framework src="com.microsoft.azure:azure-mobile-android:3.3.0"/>
+
+        <source-file src="src/android/MobileServices.java"
+                     target-dir="src/com/microsoft/windowsazure/mobileservices/cordova" />
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="MobileServices">
+                <param name="android-package" value="com.microsoft.windowsazure.mobileservices.cordova.MobileServices" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>  
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <meta-data android:name=".azure_mobileapps_redirect_uri_scheme" android:value="${redirectUriScheme}" />
+            <activity android:name="com.microsoft.windowsazure.mobileservices.authentication.RedirectUrlActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+                    <data android:host="easyauth.callback" android:scheme="${redirectUriScheme}" />
+                </intent-filter>
+            </activity>
+            <activity android:exported="false" android:name="com.microsoft.windowsazure.mobileservices.authentication.CustomTabsIntermediateActivity" />
+            <activity android:exported="false" android:launchMode="singleTask" android:name="com.microsoft.windowsazure.mobileservices.authentication.CustomTabsLoginActivity" />
+        </config-file> 
+
         <js-module src="www/MobileServices.Cordova.Ext.js" name="AzureMobileServices.Ext">
             <runs />
         </js-module>
