@@ -18708,7 +18708,7 @@ exports.login = function (startUri, endUri, callback, providerName, appUrl) {
 
     if (!isSupportedCordovaVersion(foundCordovaVersion)) {
         message = "Not a supported version of Cordova. Detected: " + foundCordovaVersion +
-            ". Required: " + requiredCordovaVersion.major + "." + requiredCordovaVersion.minor;
+                    ". Required: " + requiredCordovaVersion.major + "." + requiredCordovaVersion.minor;
         throw new Error(message);
     }
 
@@ -18772,7 +18772,7 @@ function loginWithGoogle(appUrl, callback) {
     cordova.exec(successCallback, errorCallback, "MobileServices", "loginWithGoogle", [appUrl])
 }
 
-function isRunUnderRippleEmulator() {
+function isRunUnderRippleEmulator () {
     // Returns true when application runs under Ripple emulator 
     return window.parent && !!window.parent.ripple;
 }
@@ -18790,7 +18790,7 @@ function isSupportedCordovaVersion(version) {
             minor = Number(versionParts[2]),
             required = requiredCordovaVersion;
         return (major > required.major) ||
-            (major === required.major && minor >= required.minor);
+               (major === required.major && minor >= required.minor);
     }
     return false;
 }
@@ -18826,7 +18826,7 @@ function getSpinnerMarkup() {
         spokesMarkup = "";
     for (var i = 0; i < numSpokes; i++) {
         spokesMarkup += "<div style='-prefix-transform: rotateZ(" + (180 + i * 360 / numSpokes) + "deg);" +
-            "-prefix-animation-delay: " + (0.75 * i / numSpokes) + "s;'></div>";
+                                    "-prefix-animation-delay: " + (0.75 * i / numSpokes) + "s;'></div>";
     }
     return [
         "<!DOCTYPE html><html>",
