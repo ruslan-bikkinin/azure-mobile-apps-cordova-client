@@ -1,6 +1,6 @@
 {
     "name": "cordova-plugin-ms-azure-mobile-apps",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Cordova plugin for connecting to Azure Mobile Apps. For more details visit https://azure.microsoft.com/en-us/documentation/learning-paths/appservice-mobileapps/",
     "cordova": {
         "id": "cordova-plugin-ms-azure-mobile-apps",
