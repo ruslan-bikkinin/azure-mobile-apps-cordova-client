@@ -31,6 +31,10 @@ public class MobileServices extends CordovaPlugin {
 
     public static final int GOOGLE_LOGIN_REQUEST_CODE = 1;
     private static final String MANIFEST_REDIRECT_URI_SCHEME_KEY = ".azure_mobileapps_redirect_uri_scheme";
+    private static final String COULD_NOT_READ_REDIRECT_URI_SCHEME_MSG =
+            "Could not read redirect uri scheme from manifest. " +
+                    "Did you have this line '<meta-data android:name=\".azure_mobileapps_redirect_uri_scheme\" android:value=\"YOUR_URI_SCHEME\" />' " +
+                    "appeared and configured in your AndroidManifest.xml?";
     private MobileServiceClient mobileServiceClient = null;
     private CallbackContext resultContext;
 
@@ -87,6 +91,7 @@ public class MobileServices extends CordovaPlugin {
 
     /**
      * Get redirect uri scheme value from AndroidManifest.xml
+     *
      * @return String
      * @throws Exception
      */
@@ -96,13 +101,13 @@ public class MobileServices extends CordovaPlugin {
         try {
             ai = activity.getPackageManager().getApplicationInfo(activity.getPackageName(), PackageManager.GET_META_DATA);
         } catch (PackageManager.NameNotFoundException e) {
-            String message =
-                    "Could not read redirect uri scheme from manifest. " +
-                            "Did you have this line '<meta-data android:name=\".azure_mobileapps_redirect_uri_scheme\" android:value=\"YOUR_URI_SCHEME\" />' " +
-                            "appeared and configured in your AndroidManifest.xml?";
-            throw new Exception(message);
+            throw new Exception(COULD_NOT_READ_REDIRECT_URI_SCHEME_MSG);
         }
+
         Bundle bundle = ai.metaData;
+        if (bundle == null) {
+            throw new Exception(COULD_NOT_READ_REDIRECT_URI_SCHEME_MSG);
+        }
         String uriScheme = bundle.getString(MANIFEST_REDIRECT_URI_SCHEME_KEY);
         if (uriScheme == null || uriScheme.isEmpty()) {
             String message =
@@ -116,6 +121,7 @@ public class MobileServices extends CordovaPlugin {
 
     /**
      * Convert MobileServiceUser object to javascript 'Token' object to pass it in callback
+     *
      * @param user MobileServiceUser object
      * @return JSONObject
      */
