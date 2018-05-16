@@ -73,7 +73,7 @@
     </platform>
 
     <platform name="android">
-        <framework src="com.microsoft.azure:azure-mobile-android:3.3.0"/>
+        <framework src="com.microsoft.azure:azure-mobile-android:3.3.0@aar"/>
 
         <source-file src="src/android/MobileServices.java"
                      target-dir="src/com/microsoft/windowsazure/mobileservices/cordova" />
